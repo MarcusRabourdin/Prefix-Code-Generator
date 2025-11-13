@@ -1,11 +1,11 @@
 #ifndef PREFIX_H
 #define PREFIX_H
-#include "../tree/tree.h"
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
-char* decode(char* encoded,char* key_value[], char* letter);
+#include "../tree/tree.h"
 
+char *decode(char *encoded, char *key_value[], char *letter);
 
 #endif // ! PREFIX_H
