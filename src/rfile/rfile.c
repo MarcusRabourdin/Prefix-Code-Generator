@@ -1,23 +1,20 @@
 #define _GNU_SOURCE
 #include "rfile.h"
 
+/*
 int main(void)
 {
-    char *path = "filecode.code";
+    char *path = "tests/filecode.code";
 
     struct Key_value *list = parseFile(path);
     print_list(list);
+    
+     
     free_list(list);
     return 1;
 }
 
-void decode(char *path)
-{
-    if (!path)
-        return;
-    // struct Key_value *list = parseFile(path);
-    return;
-}
+*/
 
 struct Key_value *parseFile(char *path)
 {
@@ -28,7 +25,8 @@ struct Key_value *parseFile(char *path)
         exit(1);
     }
 
-    struct Key_value *start = create_node('0', NULL);
+    struct Key_value *start = create_node('0', "test");
+    //printf("%s\n",start->code);
     char *line = NULL;
     size_t len = 0;
     ssize_t bytes_read;

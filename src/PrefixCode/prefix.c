@@ -1,5 +1,6 @@
 #include "prefix.h"
 
+/*
 int main(void)
 {
     char *letter = "abcdef";
@@ -13,16 +14,19 @@ int main(void)
     return 0;
 }
 
+*/
 char *decode(char *encoded, char *key_value[], char *letter)
 {
     struct tree *encoded_tree = build(letter, key_value);
     size_t len = strlen(encoded);
-    char *decoded = malloc(len * sizeof(char));
+    char *decoded = malloc(len * sizeof(char)+1);
     int offset;
     size_t i = 0;
     while (key_value[i] != NULL)
     {
+        //printf("encoded is%s\n",encoded);
         decoded[i] = search(encoded_tree, encoded, &offset);
+        //putchar(decoded[i]);
         // printf("iteration: %ld\n",i);
         encoded += offset + 1;
         offset = 0;

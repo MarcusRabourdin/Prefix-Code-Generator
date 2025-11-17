@@ -6,6 +6,6 @@
 
 #include "../tree/tree.h"
 
-char *decode(char *encoded, char *key_value[], char *letter);
 
+char *decode(char *encoded, char *key_value[], char *letter);
 #endif // ! PREFIX_H

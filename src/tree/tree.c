@@ -87,8 +87,10 @@ char search(struct tree *root, char *code, int *offset)
         return '+';
     }
     size_t i = 0;
+    //putchar(code[i]);
     while (code[i])
     {
+        //putchar(code[i]);
         if (code[i] == '0')
         {
             root = root->left_child;
@@ -96,6 +98,11 @@ char search(struct tree *root, char *code, int *offset)
         else if (code[i] == '1')
         {
             root = root->right_child;
+        }
+        if(!root)
+        {
+            printf("invalid code\n");
+            exit(1);
         }
 
         if ('a' <= root->data && root->data <= 'z')

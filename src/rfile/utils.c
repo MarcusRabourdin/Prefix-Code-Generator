@@ -1,4 +1,8 @@
+#define _GNU_SOURCE
 #include "rfile.h"
+
+char* skip_last(char* string);
+
 
 struct Key_value *create_node(char letter, char *code)
 {
@@ -10,7 +14,7 @@ struct Key_value *create_node(char letter, char *code)
     }
     node->next = NULL;
     node->letter = letter;
-    node->code = code;
+    node->code = skip_last(code);
     node->encoded = NULL;
     return node;
 }
@@ -43,7 +47,9 @@ void free_list(struct Key_value *node)
     {
         struct Key_value *tmp = node;
         node = node->next;
+        free(tmp->code);
         free(tmp);
+
 
     }
     return;
@@ -76,7 +82,8 @@ struct Key_value *getKeyValue(char *line)
     char *formated = format(line);
     if (formated[1] != ':')
     {
-        perror("Invalid Format\n shoud be: [letter]:[code]");
+        printf("Invalid Format!\n\nshoud be:[letter]:[code]\n");
+        printf("get:\n    %s\n",formated);
         free(formated);
         exit(1);
     }
@@ -86,6 +93,7 @@ struct Key_value *getKeyValue(char *line)
     size_t i = 2;
     while(formated[i])
     {
+        //putchar(formated[i]);
         code[i - 2] = formated[i];
         i++;
     }
@@ -114,12 +122,57 @@ char* getEncodedMessage(char *string)
 void print_list(struct Key_value *node)
 {
     printf("encoded_message = %s\n", node->encoded);
-
+    node = node->next; // to skip the start node
+    printf("[letter,code]\n");
     while (node != NULL)
     {
-        printf("letter: %c\nassociated_code:%s\n", node->letter, node->code);
+        printf("(%c,%s)\n",node->letter, node->code);
         node = node->next;
     }
 
     return;
 }
+
+char* skip_last(char* string)
+{
+    int len = strlen(string);
+    char* new_string = malloc(len* sizeof(char));
+    size_t i = 0;
+    while(string[i+1])
+    {
+        new_string[i] = string[i];
+        i++;
+    }
+    new_string[i] = '\0';
+    return new_string;
+}
+
+
+size_t list_len(struct Key_value *start)
+{
+    if(!start)
+        return 0;
+    return 1+list_len(start->next);
+}
+
+
+void getdata(struct Key_value *list, char* letter, char* key_value[])
+{
+    if(!list)
+        return;
+    size_t i = 0;
+    list = list->next;
+    while(list != NULL)
+    {
+        letter[i] = list->letter;
+        key_value[i] = strdup(list->code);
+        list = list->next;
+        i++;
+    }
+    letter[i] = '\0';
+    key_value[i] = NULL;
+    return;
+}
+
+
+

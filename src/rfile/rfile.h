@@ -1,6 +1,7 @@
 #ifndef RFILE_H
 #define RFILE_H
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -17,7 +18,7 @@ struct Key_value
     char* encoded;
 };
 
-void decode(char* path);
+//void decode(char* path);
 struct Key_value *create_node(char letter, char* code);
 struct Key_value *add_node(struct Key_value *node,struct Key_value *to_add);
 void free_list(struct Key_value *node);
@@ -25,5 +26,7 @@ void print_list(struct Key_value *node);
 struct Key_value *parseFile(char* path);
 struct Key_value *getKeyValue(char* line);
 char* getEncodedMessage(char* string);
+size_t list_len(struct Key_value *list);
+void getdata(struct Key_value *list, char* letter, char* key_value[]);
 
 #endif // ! RFILE_H
