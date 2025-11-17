@@ -20,8 +20,9 @@ char *decode(char *encoded, char *key_value[], char *letter)
     struct tree *encoded_tree = build(letter, key_value);
     size_t len = strlen(encoded);
     char *decoded = malloc(len * sizeof(char)+1);
-    int offset;
+    int offset = 0;
     size_t i = 0;
+    //printf("coucou: %c\n",encoded[i]);
     while (key_value[i] != NULL)
     {
         //printf("encoded is%s\n",encoded);

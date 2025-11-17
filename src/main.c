@@ -27,6 +27,12 @@ int main(void)
 
     char* decoded_message = decode(encoded,key_value,letter);
     printf("the message is %s\n",decoded_message);
+    
+    for(size_t i = 0; i <nb_letter;i++)
+    {
+        free(key_value[i]);
+    }
+    free(decoded_message);
     free(letter);
     free_list(list);
     return 0;
